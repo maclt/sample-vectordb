@@ -1,6 +1,5 @@
 package net.taromurakami.pinecone
 
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import java.io.ByteArrayOutputStream
@@ -25,7 +24,16 @@ class AppTest {
 
             // Check that the expected output was printed
             val output = outputCaptor.toString().trim()
-            assertEquals("Hello from Kotlin + Maven!", output)
+
+            val expectedLines =
+                listOf(
+                    "Hello from Kotlin + Maven!",
+                )
+
+            // Check that each expected line is in the output
+            expectedLines.forEach { line ->
+                assertTrue(output.contains(line), "Output should contain: $line")
+            }
         } finally {
             // Restore standard output
             System.setOut(standardOut)

@@ -11,6 +11,7 @@
     <kotlin.version>2.1.20</kotlin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <kotlin.compiler.jvmTarget>23</kotlin.compiler.jvmTarget>
+    <log4j.version>2.22.1</log4j.version>
   </properties>
 
   <dependencies>
@@ -24,6 +25,26 @@
       <artifactId>junit-jupiter</artifactId>
       <version>5.12.2</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.pinecone</groupId>
+      <artifactId>pinecone-client</artifactId>
+      <version>4.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j2-impl</artifactId>
+      <version>${log4j.version}</version>
     </dependency>
   </dependencies>
 

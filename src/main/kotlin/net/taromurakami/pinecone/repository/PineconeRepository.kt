@@ -4,7 +4,8 @@ import com.google.protobuf.Struct
 import com.google.protobuf.Value
 import io.pinecone.clients.Index
 import io.pinecone.clients.Pinecone
-import net.taromurakami.pinecone.domain.SearchResult
+import net.taromurakami.pinecone.domain.QueryResult
+import net.taromurakami.pinecone.domain.Vector
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Repository
@@ -56,10 +57,10 @@ class PineconeRepository() {
         logger.info("upsert executed $id. Response: $response")
     }
 
-    fun search(
+    fun query(
         vector: List<Float>,
         limit: Int,
-    ): List<SearchResult> {
+    ): List<QueryResult> {
         val response =
             index.query(
                 limit,
@@ -73,8 +74,19 @@ class PineconeRepository() {
                 true,
             )
 
-        logger.info("search executed. Response: $response")
+        logger.info("query executed. Response: $response")
 
-        return response.getMatchesList().map { SearchResult(it.id, it.score) }
+        return response.matchesList.map { QueryResult(it.id, it.score) }
+    }
+
+    fun fetch(id: String): Vector {
+        val response =
+            index.fetch(listOf(id), namespace)
+
+        logger.info("queryByVectorId executed. Response: $response")
+
+        val vector = response.getVectorsOrThrow(id)
+
+        return Vector(vector.id, vector.valuesList)
     }
 }

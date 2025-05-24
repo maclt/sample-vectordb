@@ -1,11 +1,12 @@
 package net.taromurakami.pinecone.presentation
 
-import net.taromurakami.pinecone.domain.SearchResult
+import net.taromurakami.pinecone.domain.QueryResult
 import net.taromurakami.pinecone.service.MainService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -30,15 +31,23 @@ class MainController(
             .body(CreatedResponse(res.id, res.data))
     }
 
-    @GetMapping("search")
-    fun search(
+    @GetMapping("query")
+    fun query(
         @RequestBody vector: List<Float>,
         @RequestParam(required = false) limit: Int?,
-    ): ResponseEntity<SearchResponse> {
-        logger.info("GET /vector/search. Received vector: $vector, limit: $limit")
-        val searchResults = service.search(vector, limit)
-        val res = SearchResponse(searchResults)
-        return ResponseEntity.ok(res)
+    ): ResponseEntity<QueryResponse> {
+        logger.info("GET /query/query. Received vector: $vector, limit: $limit")
+        val res = service.query(vector, limit)
+        return ResponseEntity.ok(QueryResponse(res))
+    }
+
+    @GetMapping("find-by-id/{id}")
+    fun findById(
+        @PathVariable id: String,
+    ): ResponseEntity<FindOneResponse> {
+        logger.info("GET /vector/find-by-id/. Received id: $id")
+        val res = service.findById(id)
+        return ResponseEntity.ok(FindOneResponse(res.id, res.data))
     }
 
     @PostMapping("random")
@@ -50,10 +59,14 @@ class MainController(
             .body(CreatedResponse(res.id, res.data))
     }
 
-    // Data class to wrap the search results
-    data class SearchResponse(
-        val results: List<SearchResult>,
+    data class QueryResponse(
+        val results: List<QueryResult>,
         val size: Int = results.size,
+    )
+
+    data class FindOneResponse(
+        val id: String,
+        val vector: List<Float>,
     )
 
     data class CreatedResponse(

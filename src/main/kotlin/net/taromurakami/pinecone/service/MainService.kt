@@ -1,6 +1,6 @@
 package net.taromurakami.pinecone.service
 
-import net.taromurakami.pinecone.domain.SearchResult
+import net.taromurakami.pinecone.domain.QueryResult
 import net.taromurakami.pinecone.domain.Vector
 import net.taromurakami.pinecone.repository.PineconeRepository
 import org.springframework.stereotype.Service
@@ -16,11 +16,15 @@ class MainService(private val db: PineconeRepository) {
         return Vector(id, vector)
     }
 
-    fun search(
+    fun query(
         vector: List<Float>,
         limit: Int?,
-    ): List<SearchResult> {
-        return db.search(vector, limit ?: 3)
+    ): List<QueryResult> {
+        return db.query(vector, limit ?: 3)
+    }
+
+    fun findById(id: String): Vector {
+        return db.fetch(id)
     }
 
     fun insertRamdom(): Vector {

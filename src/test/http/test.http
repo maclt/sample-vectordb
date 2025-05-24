@@ -6,11 +6,14 @@ Content-Type: application/json
 
 [0.1, 0.2, 0.3]
 
-### Search for similar vectors
-GET {{baseUrl}}/vectors/search?limit=100
+### Query for similar vectors
+GET {{baseUrl}}/vectors/query?limit=3
 Content-Type: application/json
 
-[0.1, 0.9, 0.3]
+[0.1, 0.3, 0.3]
+
+### Find vector by ID
+GET {{baseUrl}}/vectors/find-by-id/095bd5f0-ea2e-4527-942d-c251ad3505be
 
 ### Insert a random vector
 POST {{baseUrl}}/vectors/random

@@ -1,5 +1,9 @@
 # Pinecone Vector Database Demo
 
+> [!NOTE]
+> Please read this article to know more about this repo!
+> https://open.substack.com/pub/maclt/p/vector-database-tutorial
+
 A Spring Boot application demonstrating how to use the Pinecone vector database with Kotlin. This project provides a REST API for vector operations including insertion, search, and random vector generation.
 
 ## Overview
@@ -23,7 +27,7 @@ src/
 ├── main/
 │   └── kotlin/net/taromurakami/pinecone/
 │       ├── domain/                 # Domain models
-│       │   ├── SearchResult.kt     # Search result data class
+│       │   ├── QueryResult.kt      # Query result data class
 │       │   └── Vector.kt           # Vector data class
 │       ├── presentation/           # API controllers
 │       │   └── MainController.kt   # REST endpoints
@@ -67,9 +71,9 @@ Content-Type: application/json
 ```
 Response: Returns the created vector with a generated UUID
 
-### Search Similar Vectors
+### Query Similar Vectors
 ```
-GET /vectors/search?limit=10
+GET /vectors/query?limit=10
 Content-Type: application/json
 
 [0.1, 0.2, 0.3]
@@ -78,6 +82,15 @@ Parameters:
 - `limit` (optional): Maximum number of results to return (default: 3)
 
 Response: Returns matching vectors with similarity scores
+
+### Find Vector by ID
+```
+GET /vectors/find-by-id/{id}
+```
+Parameters:
+- `id` (required): The unique identifier of the vector to retrieve
+
+Response: Returns the vector with the specified ID
 
 ### Insert Random Vector
 ```
@@ -136,7 +149,8 @@ mvn dependency:tree
 2. It creates a "quickstart" index if it doesn't exist
 3. The REST API allows you to:
    - Insert vectors with unique IDs
-   - Search for similar vectors using cosine similarity
+   - Query for similar vectors using cosine similarity
+   - Find specific vectors by their ID
    - Generate and insert random normalized vectors
 
 Each vector operation is logged for monitoring and debugging purposes.

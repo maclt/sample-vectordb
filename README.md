@@ -1,7 +1,7 @@
 # Pinecone Vector Database Demo
 
 > [!NOTE]
-> Please read this article to know more about this repo!
+> Please read this article to know more about this repo!  
 > https://open.substack.com/pub/maclt/p/vector-database-tutorial
 
 A Spring Boot application demonstrating how to use the Pinecone vector database with Kotlin. This project provides a REST API for vector operations including insertion, search, and random vector generation.

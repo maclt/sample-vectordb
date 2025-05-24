@@ -20,7 +20,7 @@ export PINECONE_API_KEY=your_api_key_here
 
 ### Logging
 
-The application uses Log4j2 for logging. The configuration file is located at `src/main/resources/log4j2.xml`.
+The service uses Log4j2 for logging. The configuration file is located at `src/main/resources/log4j2.xml`.
 
 Logs are written to both the console and a file at `logs/app.log`.
 
@@ -54,4 +54,9 @@ java -cp target/pinecone-1.0-SNAPSHOT.jar net.taromurakami.pinecone.AppKt
 Run with all dependencies included:
 ```shell
 java -jar target/pinecone-1.0-SNAPSHOT-jar-with-dependencies.jar
+```
+
+## Dependency
+```shell
+mvn dependency:tree
 ```
